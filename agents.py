@@ -8,9 +8,11 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 
 from tools import scrape_url, web_search
+import os
 
 # Read keys straight from .env so a stale system variable can't override them.
 _cfg = dotenv_values(Path(__file__).parent / ".env")
+api_key=_cfg.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY"),
 
 # One shared model (Groq free tier). temperature=0 keeps output factual.
 llm = ChatGroq(
